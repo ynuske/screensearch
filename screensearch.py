@@ -23,26 +23,25 @@ def buscar_no_google_lens(caminho_imagem):
     print("Enviando imagem...")
 
     try:
-        # Prepara os arquivos e dados para a requisição multipart/form-data
+        
         with open(caminho_imagem, "rb") as arquivo:
             files = {"fileToUpload": arquivo}
             data = {"reqtype": "fileupload"}
 
-            # Faz a requisição POST
+            
             resposta = requests.post(url_api, data=data, files=files)
 
-        # Se o upload deu certo (código HTTP 200)
         if resposta.status_code == 200:
             url_imagem_publica = resposta.text.strip()
 
-            # Monta o link do Google Lens com o parâmetro da imagem
+           
             url_lens = (
                 f"https://www.google.com/searchbyimage?image_url={url_imagem_publica}"
             )
 
             print(f"Sucesso! Abrindo Google Lens: {url_lens}")
 
-            # Abre a URL diretamente no navegador padrão configurado no sistema
+         
             webbrowser.open(url_lens)
         else:
             print(f"Erro no upload. Código HTTP: {resposta.status_code}")
@@ -54,12 +53,11 @@ def buscar_no_google_lens(caminho_imagem):
 def main():
     caminho_temp = "/tmp/print.png"
 
-    # 1. Tira o print no Wayland
+  
     if capturar_tela(caminho_temp):
-        # 2. Faz o upload e pesquisa no Google Lens
+       
         buscar_no_google_lens(caminho_temp)
 
-        # 3. Limpa o arquivo temporário gerado no disco
         if os.path.exists(caminho_temp):
             os.remove(caminho_temp)
 
