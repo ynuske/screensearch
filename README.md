@@ -116,6 +116,4 @@ rm -rf .venv build dist screen-search.spec
 
 ---
 
-## 📄 License
 
-Distributed under the [MIT License](LICENSE). Feel free to modify and distribute.
